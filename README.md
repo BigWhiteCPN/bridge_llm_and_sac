@@ -1,4 +1,4 @@
-# LLM-to-SAC Navigation Bridge
+# MuJoCo Humanoid Hierarchical RL + LLM Spatial Navigation
 
 中文 | [English](#english)
 
@@ -6,10 +6,11 @@
 
 ### 项目定位
 
-本仓库是 `agent_system_complex_version` 机器人导航系统的研究拓展，负责
-bridge 层的数据记录、训练、评估和 advisor 实验。
+本仓库面向 MuJoCo 人形机器人分层强化学习与 LLM 空间导航任务，提供
+LLM 高层任务规划与 SAC 导航控制之间的 bridge/advisor 训练代码。
+项目负责运行状态记录、训练数据构建、advisor 训练、离线评估和在线 A/B 实验。
 
-原项目负责真实运行时的机器人状态、导航回调、空间记忆、拓扑地图和
+运行系统负责真实运行时的机器人状态、导航回调、空间记忆、拓扑地图和
 SAC 导航执行。本项目只研究中间桥接层：如何在大语言模型的高层任务规划
 和 SAC 的中层/底层导航控制之间建立更高密度的信息通道。
 
@@ -127,7 +128,7 @@ $MUJOCO_PYTHON -m scripts.smoke_forward
 
 ### 运行时数据采集
 
-不修改 `agent_system_complex_version` 核心逻辑的运行时采集：
+不修改外部导航运行系统核心逻辑的运行时采集：
 
 ```bash
 $MUJOCO_PYTHON -m scripts.collect_runtime \
@@ -304,12 +305,13 @@ python -m scripts.sweep_risk_thresholds --data-dir data/runtime_merged
 
 ### Project Scope
 
-This repository is a research extension of the `agent_system_complex_version`
-robot navigation system. It contains the bridge-layer data recording, training,
-evaluation and advisor experiments.
+This repository contains the bridge/advisor training code for MuJoCo humanoid
+hierarchical RL and LLM spatial navigation. It covers runtime state recording,
+dataset construction, advisor training, offline evaluation and online A/B
+experiments.
 
-The original agent system remains responsible for runtime robot state,
-navigation callbacks, spatial memory, topological maps and SAC navigation.
+The runtime navigation system remains responsible for robot state, navigation
+callbacks, spatial memory, topological maps and SAC navigation.
 This project focuses only on the middle bridge layer: building a denser
 information channel between high-level LLM task planning and SAC-based
 navigation execution.
@@ -414,8 +416,8 @@ $MUJOCO_PYTHON -m scripts.smoke_forward
 
 ### Runtime Collection
 
-Collect runtime bridge episodes without modifying the core logic in
-`agent_system_complex_version`:
+Collect runtime bridge episodes without modifying the external navigation
+runtime:
 
 ```bash
 $MUJOCO_PYTHON -m scripts.collect_runtime \
