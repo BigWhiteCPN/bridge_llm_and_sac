@@ -8,7 +8,7 @@
 
 本仓库是机器人导航项目
 `/home/chen/code/IsaacLabExtensionTemplate/scripts/agent_system_complex_version`
-的研究拓展，已经整理成一个可以独立维护和上传的训练项目。
+的研究拓展，负责 bridge 层的数据记录、训练、评估和 advisor 实验。
 
 原项目负责真实运行时的机器人状态、导航回调、空间记忆、拓扑地图和
 SAC 导航执行。本项目只研究中间桥接层：如何在大语言模型的高层任务规划
@@ -307,7 +307,8 @@ python -m scripts.sweep_risk_thresholds --data-dir data/runtime_merged
 
 This repository is a research extension of the robot agent system located at
 `/home/chen/code/IsaacLabExtensionTemplate/scripts/agent_system_complex_version`.
-It has been organized as an independent training workspace.
+It contains the bridge-layer data recording, training, evaluation and advisor
+experiments.
 
 The original agent system remains responsible for runtime robot state,
 navigation callbacks, spatial memory, topological maps and SAC navigation.
