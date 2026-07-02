@@ -1,4 +1,4 @@
-# LLM-to-SAC Cognitive Bridge
+# LLM-to-SAC Navigation Bridge
 
 中文 | [English](#english)
 
@@ -6,7 +6,7 @@
 
 ### 项目定位
 
-本仓库是机器人智能体项目
+本仓库是机器人导航项目
 `/home/chen/code/IsaacLabExtensionTemplate/scripts/agent_system_complex_version`
 的研究拓展，已经整理成一个可以独立维护和上传的训练项目。
 
@@ -42,9 +42,9 @@ cross-attention + transformer fusion
         -> event / replan / outcome / candidate-score heads
 ```
 
-它更接近一个世界模型风格的中间层，而不是直接的 VLA 控制器。模型预测
-事件、进展、失败风险和 skill gate；SAC 保留快速闭环导航能力，LLM 保留
-高层任务拆解和语义规划能力。
+它不是端到端控制器，而是一个导航过程监控和子目标决策模块。模型根据地图、
+机器人状态、空间记忆和候选子目标预测事件、进展、失败风险和 skill gate；
+SAC 保留快速闭环导航能力，LLM 保留高层任务拆解和语义规划能力。
 
 当前运行时状态向量是 22 维：
 
@@ -343,8 +343,9 @@ cross-attention + transformer fusion
         -> event / replan / outcome / candidate-score heads
 ```
 
-The design is closer to a world-model-like middle layer than a direct VLA
-controller. The model predicts events, progress, failure risk and skill gates;
+The design is not an end-to-end controller. It is a navigation monitoring and
+subgoal decision module. Given maps, robot state, spatial memory and candidate
+subgoals, the model predicts events, progress, failure risk and skill gates.
 SAC keeps fast closed-loop navigation, while the LLM keeps high-level task
 decomposition and semantic planning.
 
