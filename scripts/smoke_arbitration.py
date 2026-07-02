@@ -3,6 +3,13 @@
 
 from __future__ import annotations
 
+try:
+    from scripts._bootstrap import ensure_project_root
+except ModuleNotFoundError:
+    from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from bridge.advisor import BridgeDecision
 from bridge.arbitration import BridgeInterventionConfig, BridgeInterventionPolicy
 

@@ -8,6 +8,13 @@ tests before a runtime recorder is wired in.
 
 from __future__ import annotations
 
+try:
+    from scripts._bootstrap import ensure_project_root
+except ModuleNotFoundError:
+    from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 import argparse
 import json
 from pathlib import Path

@@ -3,6 +3,13 @@
 
 from __future__ import annotations
 
+try:
+    from scripts._bootstrap import ensure_project_root
+except ModuleNotFoundError:
+    from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 import argparse
 import subprocess
 import sys
@@ -84,7 +91,6 @@ def main() -> None:
     parser.add_argument("--hindsight-backfill-steps", type=int, default=8)
     args = parser.parse_args()
 
-    script = Path(__file__).with_name("collect_runtime.py")
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -95,7 +101,8 @@ def main() -> None:
         episode_id = f"batch_{episode_num:04d}_{task['name']}"
         cmd = [
             sys.executable,
-            str(script),
+            "-m",
+            "scripts.collect_runtime",
             "--agent-root",
             args.agent_root,
             "--output-dir",

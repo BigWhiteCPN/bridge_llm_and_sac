@@ -3,13 +3,20 @@
 
 from __future__ import annotations
 
+try:
+    from scripts._bootstrap import ensure_project_root
+except ModuleNotFoundError:
+    from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from pathlib import Path
 
 import numpy as np
 
 from bridge.recorder import TaskSpec
 from bridge.sidecar import BridgeSidecarCollector
-from validate_episode import validate_file
+from scripts.validate_episode import validate_file
 
 
 class FakeGridMap:

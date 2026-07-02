@@ -3,6 +3,13 @@
 
 from __future__ import annotations
 
+try:
+    from scripts._bootstrap import ensure_project_root
+except ModuleNotFoundError:
+    from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 import argparse
 import json
 import re
@@ -15,14 +22,14 @@ from pathlib import Path
 import numpy as np
 
 from bridge.constants import EVENT_TYPES, REPLAN_ACTIONS
-from collect_runtime_batch import TASKS
+from scripts.collect_runtime_batch import TASKS
 
 
 def build_collect_cmd(args, *, condition: str, task: dict, episode_id: str, seed: int, output_dir: Path) -> list[str]:
-    script = Path(__file__).with_name("collect_runtime.py")
     cmd = [
         sys.executable,
-        str(script),
+        "-m",
+        "scripts.collect_runtime",
         "--agent-root",
         args.agent_root,
         "--output-dir",
