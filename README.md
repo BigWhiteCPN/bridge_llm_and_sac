@@ -2,6 +2,27 @@
 
 中文 | [English](#english)
 
+## Demo Video / 演示视频
+
+[![Bridge pantry A/B demo video preview](assets/demo-preview.png)](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/data/ab_video_showcase/02_pantry_bridge_success_vs_baseline_timeout_safe_hold_comparison.mp4)
+
+[观看 demo 视频 / Watch the demo video](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/data/ab_video_showcase/02_pantry_bridge_success_vs_baseline_timeout_safe_hold_comparison.mp4)
+
+这个基础演示视频展示同一个 pantry 任务、同一个 seed 下的成对 A/B 评估。左侧是
+`BASELINE / OFF`，右侧是 `BRIDGE / REPLAN`。视频 overlay 显示了 method、task、
+seed、phase、env steps、distance、success 和 done reason，结束后会短暂 hold 住
+最终状态，方便检查是否成功到达目标。
+
+- Baseline: `success=false`, `done_reason=timeout/episode_horizon_env_steps`,
+  `env_steps=2615`, `path_length=34.55m`, `collision=false`
+- Bridge/Replan: `success=true`, `done_reason=success`, `env_steps=1444`,
+  `path_length=19.17m`, `num_replans=1`, `collision=false`
+- Result files: [summary.json](data/showcase_pantry_seed16005_safe_demo/summary.json),
+  [results.json](data/showcase_pantry_seed16005_safe_demo/results.json)
+
+This is a single showcase run. Aggregate claims such as average step reduction
+should be reported from multi-seed batch experiments.
+
 ## 中文
 
 ### 简介
@@ -90,7 +111,8 @@ cross-attention + transformer fusion
 └── .gitignore
 ```
 
-`data/`、`runs/`、checkpoint、日志和 `.npz` episode 是本地实验产物，不纳入版本控制。
+`data/`、`runs/`、checkpoint、日志和 `.npz` episode 通常是本地实验产物，不纳入版本控制。
+本仓库只保留少量 `data/showcase_*` 和 `data/ab_video_showcase` 文件作为首页 demo。
 
 ### 安装
 
@@ -412,8 +434,10 @@ is improving over time instead of judging only from a single frame.
 └── .gitignore
 ```
 
-`data/`, `runs/`, checkpoints, logs and `.npz` episodes are local experiment
-outputs and are not tracked by Git.
+`data/`, `runs/`, checkpoints, logs and `.npz` episodes are usually local
+experiment outputs and are not tracked by Git. This repository keeps only a
+small `data/showcase_*` and `data/ab_video_showcase` subset for the homepage
+demo.
 
 ### Installation
 
