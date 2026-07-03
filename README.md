@@ -6,11 +6,12 @@
 
 ### 这是什么
 
-这个目录是 `scripts/agent_system_complex_version` 的扩展模块，用来训练和评估
-LLM 高层规划与 SAC 导航之间的 bridge/advisor。
+这个仓库是
+[mujoco-humanoid-hierarchical-rl-llm-spatial-navigation](https://github.com/BigWhiteCPN/mujoco-humanoid-hierarchical-rl-llm-spatial-navigation)
+项目的 bridge/advisor 训练模块，用来评估 LLM 高层规划与 SAC 导航之间的桥接策略。
 
-`agent_system_complex_version` 仍然负责机器人运行时、MuJoCo 环境、SAC `go_to`
-导航、空间记忆、拓扑地图和视觉扫描。这个模块只处理桥接层：
+父项目仍然负责机器人运行时、MuJoCo 环境、SAC `go_to` 导航、空间记忆、拓扑地图和视觉扫描。
+这个模块只处理桥接层：
 
 - 从运行中的 `NavigationSkill.go_to()` callback 记录地图、机器人状态、记忆和候选目标
 - 把记录保存成 `.npz` episode，供离线训练和评估使用
@@ -25,7 +26,7 @@ LLM 继续负责高层任务拆解。BridgeNet 读取导航过程中的状态，
 ### 运行时接入方式
 
 在线采集和 advisor 控制通过 hook 当前 `NavigationSkill` 实例实现，不改
-`agent_system_complex_version` 的源码。
+父项目的运行代码。
 
 hook 的位置是 `NavigationSkill.go_to(..., step_callback=..., callback_freq=...)`。
 每隔 `callback_freq` 个 env step，原本的 frontier 更新 callback 会被调用一次；
@@ -142,7 +143,7 @@ $MUJOCO_PYTHON -m scripts.smoke_forward
 
 ```bash
 $MUJOCO_PYTHON -m scripts.collect_runtime \
-  --agent-root ../agent_system_complex_version \
+  --agent-root /path/to/mujoco-humanoid-hierarchical-rl-llm-spatial-navigation \
   --output-dir data/runtime \
   --max-rounds 2 \
   --nav-steps-per-round 800 \
@@ -313,13 +314,13 @@ python -m scripts.sweep_risk_thresholds --checkpoint runs/runtime_bridge_v1/best
 
 ### What This Is
 
-This directory is an extension module for `scripts/agent_system_complex_version`.
-It trains and evaluates a bridge/advisor between high-level LLM planning and
-SAC navigation.
+This repository contains the bridge/advisor training module for
+[mujoco-humanoid-hierarchical-rl-llm-spatial-navigation](https://github.com/BigWhiteCPN/mujoco-humanoid-hierarchical-rl-llm-spatial-navigation).
+It evaluates bridge policies between high-level LLM planning and SAC navigation.
 
-`agent_system_complex_version` remains responsible for the MuJoCo runtime, SAC
-`go_to` navigation, spatial memory, topological maps and visual scanning. This
-module handles only the bridge layer:
+The parent project remains responsible for the MuJoCo runtime, SAC `go_to`
+navigation, spatial memory, topological maps and visual scanning. This module
+handles only the bridge layer:
 
 - recording maps, robot state, memory and candidate goals from the running
   `NavigationSkill.go_to()` callback
@@ -455,7 +456,7 @@ Single run:
 
 ```bash
 $MUJOCO_PYTHON -m scripts.collect_runtime \
-  --agent-root ../agent_system_complex_version \
+  --agent-root /path/to/mujoco-humanoid-hierarchical-rl-llm-spatial-navigation \
   --output-dir data/runtime \
   --max-rounds 2 \
   --nav-steps-per-round 800 \
