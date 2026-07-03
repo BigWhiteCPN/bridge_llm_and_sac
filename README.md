@@ -291,7 +291,7 @@ $MUJOCO_PYTHON -m scripts.run_ab_experiment \
   --seed-base 20000 \
   --max-rounds 6 \
   --nav-steps-per-round 800 \
-  --advisor-checkpoint runs/runtime_bridge_v1/best.pt \
+  --advisor-checkpoint runs/runtime_hindsight_segment_v1_riskhead_seed1/best.pt \
   --advisor-device cpu
 ```
 
@@ -636,7 +636,7 @@ $MUJOCO_PYTHON -m scripts.run_ab_experiment \
   --seed-base 20000 \
   --max-rounds 6 \
   --nav-steps-per-round 800 \
-  --advisor-checkpoint runs/runtime_bridge_v1/best.pt \
+  --advisor-checkpoint runs/runtime_hindsight_segment_v1_riskhead_seed1/best.pt \
   --advisor-device cpu
 ```
 
