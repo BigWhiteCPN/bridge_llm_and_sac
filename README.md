@@ -4,9 +4,10 @@
 
 ## Demo Video / 演示视频
 
-[![Bridge pantry A/B demo video preview](assets/demo-preview.png)](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/data/ab_video_showcase/02_pantry_bridge_success_vs_baseline_timeout_safe_hold_comparison.mp4)
+[![Bridge pantry A/B demo video preview](assets/demo-preview.png)](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/assets/demo.mp4)
 
-[观看 demo 视频 / Watch the demo video](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/data/ab_video_showcase/02_pantry_bridge_success_vs_baseline_timeout_safe_hold_comparison.mp4)
+[观看 demo 视频 / Watch the demo video](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/assets/demo.mp4)
+（[WebM 备用链接 / WebM fallback](https://cdn.jsdelivr.net/gh/BigWhiteCPN/bridge_llm_and_sac@main/assets/demo.webm)）。
 
 这个基础演示视频展示同一个 pantry 任务、同一个 seed 下的成对 A/B 评估。左侧是
 `BASELINE / OFF`，右侧是 `BRIDGE / REPLAN`。视频 overlay 显示了 method、task、
