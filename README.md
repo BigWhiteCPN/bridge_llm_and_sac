@@ -4,7 +4,7 @@
 
 ## 中文
 
-### 这是什么
+### 简介
 
 这个仓库是
 [mujoco-humanoid-hierarchical-rl-llm-spatial-navigation](https://github.com/BigWhiteCPN/mujoco-humanoid-hierarchical-rl-llm-spatial-navigation)
@@ -312,7 +312,7 @@ python -m scripts.sweep_risk_thresholds --checkpoint runs/runtime_bridge_v1/best
 
 ## English
 
-### What This Is
+### Overview
 
 This repository contains the bridge/advisor training module for
 [mujoco-humanoid-hierarchical-rl-llm-spatial-navigation](https://github.com/BigWhiteCPN/mujoco-humanoid-hierarchical-rl-llm-spatial-navigation).
