@@ -282,6 +282,37 @@ $MUJOCO_PYTHON -m scripts.run_ab_experiment \
   --advisor-device cpu
 ```
 
+100 次成对任务统计：
+
+```bash
+$MUJOCO_PYTHON -m scripts.run_ab_experiment \
+  --output-dir data/ab_runtime_100_seed20000 \
+  --episodes 100 \
+  --seed-base 20000 \
+  --max-rounds 6 \
+  --nav-steps-per-round 800 \
+  --advisor-checkpoint runs/runtime_bridge_v1/best.pt \
+  --advisor-device cpu
+```
+
+生成统计表和首页/论文可用的 SVG 图：
+
+```bash
+python -m scripts.plot_ab_statistics \
+  data/ab_runtime_100_seed20000 \
+  --output-dir reports/ab_runtime_100_seed20000 \
+  --title "Bridge Advisor A/B Evaluation (N=100)"
+```
+
+输出包括：
+
+- `reports/ab_runtime_100_seed20000/ab_statistics.svg`
+- `reports/ab_runtime_100_seed20000/ab_statistics.md`
+- `reports/ab_runtime_100_seed20000/metrics_summary.csv`
+- `reports/ab_runtime_100_seed20000/pair_results.csv`
+
+统计脚本只读取真实 `results.json`，不会根据单个 showcase 视频外推平均提升。
+
 ### Episode 格式
 
 episode 保存为压缩 `.npz`：
@@ -308,8 +339,9 @@ candidate_score_target: [T, K] float32
 
 ### 当前实验状态
 
-已有结果里，learned advisor 能在一部分场景减少无效导航步数和 timeout；解析式
-progress guard 仍然能捕捉一些 learned model 漏掉的失败段。当前比较稳的线上方案是：
+单个 showcase 只能说明评估流程和可视化效果。要证明 bridge 中间层是否稳定提升效率，
+需要使用上面的多 seed 成对 A/B 统计，报告 success rate、episode steps、path length
+和 final distance 的均值与配对差值。当前比较稳的线上方案是：
 
 - 保留 hybrid control 作为 fallback
 - 继续把 risk-head advisor 作为学习型 bridge 的主线
@@ -595,6 +627,39 @@ $MUJOCO_PYTHON -m scripts.run_ab_experiment \
   --advisor-device cpu
 ```
 
+100 paired episodes:
+
+```bash
+$MUJOCO_PYTHON -m scripts.run_ab_experiment \
+  --output-dir data/ab_runtime_100_seed20000 \
+  --episodes 100 \
+  --seed-base 20000 \
+  --max-rounds 6 \
+  --nav-steps-per-round 800 \
+  --advisor-checkpoint runs/runtime_bridge_v1/best.pt \
+  --advisor-device cpu
+```
+
+Generate CSV, Markdown and a GitHub-readable SVG figure from the real result
+files:
+
+```bash
+python -m scripts.plot_ab_statistics \
+  data/ab_runtime_100_seed20000 \
+  --output-dir reports/ab_runtime_100_seed20000 \
+  --title "Bridge Advisor A/B Evaluation (N=100)"
+```
+
+Outputs:
+
+- `reports/ab_runtime_100_seed20000/ab_statistics.svg`
+- `reports/ab_runtime_100_seed20000/ab_statistics.md`
+- `reports/ab_runtime_100_seed20000/metrics_summary.csv`
+- `reports/ab_runtime_100_seed20000/pair_results.csv`
+
+The statistics script reads only actual `results.json` files. Do not infer
+average gains from a single showcase video.
+
 ### Episode Format
 
 Episodes are compressed `.npz` files:
@@ -621,11 +686,10 @@ candidate_score_target: [T, K] float32
 
 ### Current Status
 
-Current experiments show that the learned advisor can reduce invalid navigation
-steps and timeouts in some scenarios. The analytic progress guard is still a
-useful fallback because it catches failure segments missed by the learned model.
-
-Near-term work:
+The single showcase demonstrates the evaluation and visualization flow. To
+claim a stable bridge-layer efficiency gain, run the multi-seed paired A/B
+evaluation above and report success rate, episode steps, path length, final
+distance and paired deltas. The current robust online direction is:
 
 - keep hybrid control as the robust online setting
 - continue using the risk-head advisor as the main learned bridge
